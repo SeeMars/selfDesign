@@ -8,5 +8,10 @@ import mjj.dto.UserDto;
  * @Version: 1.0.0
  **/
 public interface UserService {
+    /**
+     * 通过名称获取
+     * @param name
+     * @return
+     */
     UserDto getUserByName(String name);
 }
