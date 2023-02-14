@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
+        testUserListDistinct();
         testRemove();
         testSwtich();
         List<String> list = Lists.newArrayList("1", "2", "3", "3", "4");
@@ -62,5 +63,13 @@ public class ListTest {
         List<String> removeList = Lists.newArrayList("1", "2");
         Collection collection = CollectionUtils.removeAll(list, removeList);
         System.out.println(collection);
+    }
+
+    public static void testUserListDistinct(){
+        UserDto userDto=new UserDto("n",1,Lists.newArrayList("1","2","3","2"));
+        userDto.getList().stream().distinct().collect(Collectors.toList());
+        System.out.println(userDto);
+        userDto.setList(userDto.getList().stream().distinct().collect(Collectors.toList()));
+        System.out.println(userDto);
     }
 }

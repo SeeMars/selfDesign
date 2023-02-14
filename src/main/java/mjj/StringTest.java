@@ -12,8 +12,10 @@ import java.util.List;
  **/
 public class StringTest {
     public static void main(String[] args) {
-        System.out.println(String.format("test[%s]","值"));
         testSubString();
+        System.out.println(String.format("test[%s]","值"));
+        String a="12345";
+        System.out.println(StringUtils.substring(a,0,2));
 //        testChar();
 //        System.out.println(StringUtils.replace("sad", "_", ""));
 //        String tem="asdwwweee";
@@ -63,5 +65,9 @@ public class StringTest {
 
         s.insert(s.indexOf("H1")+2,"(");
         System.out.println(s);
+        //测试截取超出长度的字段
+        String substring = s.substring(0,4);
+        System.out.println(substring);
+
     }
 }

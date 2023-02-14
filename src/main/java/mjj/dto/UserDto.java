@@ -1,5 +1,7 @@
 package mjj.dto;
 
+import java.util.List;
+
 /**
  * @Author: majianjiong
  * @Date: 2022-11-24 14:15
@@ -8,7 +10,7 @@ package mjj.dto;
 public class UserDto {
     private String name;
     private int age;
-
+    private List<String> list;
     public String getName() {
         return name;
     }
@@ -19,6 +21,18 @@ public class UserDto {
     public UserDto(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+    public UserDto(String name,int age,List<String> strings){
+        this.name=name;
+        this.age=age;
+        this.list=strings;
+    }
+    public List<String> getList() {
+        return list;
+    }
+
+    public void setList(List<String> list) {
+        this.list = list;
     }
 
     public void setName(String name) {
@@ -38,6 +52,7 @@ public class UserDto {
         return "UserDto{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
+                ", list=" + list +
                 '}';
     }
 }

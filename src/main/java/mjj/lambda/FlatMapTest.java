@@ -1,6 +1,7 @@
 package mjj.lambda;
 
 import com.google.common.collect.Lists;
+import mjj.constant.ExtendRuleEnum;
 import mjj.dto.UserDto;
 import mjj.service.UserService;
 import mjj.service.UserServiceImpl;
@@ -26,6 +27,7 @@ public class FlatMapTest {
     static List<UserDto> list2 = Lists.newArrayList(u4, u5);
    static UserService userService=new UserServiceImpl();
     public static void main(String[] args) {
+        enumFlatMap();
         flatMap1();
         flatIntMap();
     }
@@ -50,7 +52,10 @@ public class FlatMapTest {
         List<Integer> collect = father.stream().flatMapToInt(a -> a.stream().mapToInt(Integer::intValue)).boxed().collect(Collectors.toList());
         System.out.println(collect);
     }
-
+    static void enumFlatMap(){
+        List<String> companyCodes = ExtendRuleEnum.getCompanyCodes();
+        System.out.println(companyCodes);
+    }
     /**
      * 测试flatMap对stream集合流里的参数匹配
      */
