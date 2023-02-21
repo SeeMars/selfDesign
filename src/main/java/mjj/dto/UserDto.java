@@ -1,5 +1,7 @@
 package mjj.dto;
 
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 /**
@@ -54,5 +56,13 @@ public class UserDto {
                 ", age=" + age +
                 ", list=" + list +
                 '}';
+    }
+
+    public static List<UserDto> getUserList(){
+        UserDto userDto=new UserDto("mjj",2);
+        UserDto userDto1=new UserDto("zzz",3);
+        UserDto userDto2=new UserDto("www",4);
+        UserDto userDto3=new UserDto("mjj",4);
+        return Lists.newArrayList(userDto1,userDto,userDto2,userDto3);
     }
 }

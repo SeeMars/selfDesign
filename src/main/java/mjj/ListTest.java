@@ -1,6 +1,7 @@
 package mjj;
 
 import com.google.common.collect.Lists;
+import mjj.dto.FatherUser;
 import mjj.dto.UserDto;
 import org.apache.commons.collections.CollectionUtils;
 
@@ -27,6 +28,7 @@ public class ListTest {
         }
         System.out.println(list);
         testDuplicate();
+        testDel();
     }
 
     public static void testDuplicate() {
@@ -71,5 +73,29 @@ public class ListTest {
         System.out.println(userDto);
         userDto.setList(userDto.getList().stream().distinct().collect(Collectors.toList()));
         System.out.println(userDto);
+    }
+
+    /**
+     * 测试循环删除
+     */
+    public static void testDel(){
+        FatherUser fatherUser=new FatherUser();
+        fatherUser.setList(UserDto.getUserList());
+        //异常  ConcurrentModificationException
+//        for(UserDto u:fatherUser.getList()){
+//            if(u.getName().equals("mjj"))
+//                fatherUser.getList().remove(u);
+//        }
+        remove(fatherUser);
+
+        System.out.println(fatherUser.getList());
+    }
+    static void remove(FatherUser fatherUser){
+        Iterator<UserDto> iterator = fatherUser.getList().iterator();
+        while (iterator.hasNext()){
+            UserDto next = iterator.next();
+            if(next.getName().equals("mjj"))
+                iterator.remove();
+        }
     }
 }
