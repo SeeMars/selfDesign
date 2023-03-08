@@ -1,5 +1,6 @@
 package mjj;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class StringTest {
         System.out.println(String.format("test[%s]","值"));
         String a="12345";
         System.out.println(StringUtils.substring(a,0,2));
+        parseJSONStr();
 //        testChar();
 //        System.out.println(StringUtils.replace("sad", "_", ""));
 //        String tem="asdwwweee";
@@ -54,8 +56,9 @@ public class StringTest {
     }
 
     public static void testSubString(){
-       StringBuffer s=new StringBuffer("abcdec H1,H1");
-       s.delete(s.lastIndexOf("H1"),s.length());
+        System.out.println("testSubString 方法执行结果:");
+       StringBuffer s=new StringBuffer("abcdec H1,H1,qw");
+       s.delete(s.lastIndexOf(","),s.lastIndexOf(",")+1);
         System.out.println(s);
 //        String h1 = StringUtils.substring(s.toString(), 0,s.lastIndexOf("H1"));
 //        System.out.println(h1);
@@ -68,6 +71,16 @@ public class StringTest {
         //测试截取超出长度的字段
         String substring = s.substring(0,4);
         System.out.println(substring);
-
+    }
+    
+    static void parseJSONStr(){
+        String str="[\"X007\",\"X006\",\"X005\",\"X004\",\"X003\"]";
+        List list = JSONObject.parseObject(str, List.class);
+        StringBuffer stringBuffer=new StringBuffer();
+        list.stream().forEach(o->{
+            o=o+"2";
+            stringBuffer.append(o);
+        });
+        System.out.println(stringBuffer);
     }
 }

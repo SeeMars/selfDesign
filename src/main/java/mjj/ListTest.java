@@ -1,6 +1,7 @@
 package mjj;
 
 import com.google.common.collect.Lists;
+import mjj.constant.ExtendRuleEnum;
 import mjj.dto.FatherUser;
 import mjj.dto.UserDto;
 import org.apache.commons.collections.CollectionUtils;
@@ -16,19 +17,25 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testUserListDistinct();
-        testRemove();
-        testSwtich();
-        List<String> list = Lists.newArrayList("1", "2", "3", "3", "4");
-        Iterator<String> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().equals("3")) {
-                iterator.remove();
-            }
+        for(int i=0;i<5;i++){
+            System.out.println(i);
         }
-        System.out.println(list);
-        testDuplicate();
-        testDel();
+        subList();
+//        testSwtich();
+//        testMapToList();
+//        emptylistToMap();
+//        testUserListDistinct();
+//        testRemove();
+//        List<String> list = Lists.newArrayList("1", "2", "3", "3", "4");
+//        Iterator<String> iterator = list.iterator();
+//        while (iterator.hasNext()) {
+//            if (iterator.next().equals("3")) {
+//                iterator.remove();
+//            }
+//        }
+//        System.out.println(list);
+//        testDuplicate();
+//        testDel();
     }
 
     public static void testDuplicate() {
@@ -45,7 +52,7 @@ public class ListTest {
     }
 
     public static void testSwtich() {
-        String s = "bb";
+        String s = "cc";
         switch (s) {
             case "bb":
                 System.out.println("bb");
@@ -67,6 +74,9 @@ public class ListTest {
         System.out.println(collection);
     }
 
+    /**
+     * 去除对象里的集合字段的重复值
+     */
     public static void testUserListDistinct(){
         UserDto userDto=new UserDto("n",1,Lists.newArrayList("1","2","3","2"));
         userDto.getList().stream().distinct().collect(Collectors.toList());
@@ -97,5 +107,38 @@ public class ListTest {
             if(next.getName().equals("mjj"))
                 iterator.remove();
         }
+    }
+
+    /**
+     * 空集合转map
+     */
+    static void emptylistToMap(){
+        List<UserDto> list=new ArrayList<>();
+        Map<String, Integer> collect = list.stream().collect(Collectors.toMap(UserDto::getName, UserDto::getAge));
+        System.out.println(collect);
+    }
+
+    static void testMapToList(){
+        Map<String,String> map=new HashMap<>();
+        map.put("1","1");
+        map.put("2","2");
+        Collection<String> values = map.values();
+        List<String> list=new ArrayList<>(values);
+        System.out.println(list);
+    }
+
+    static void subList(){
+        List<String> list=Lists.newArrayList("1","2","3","4","5","6","7");
+        for(int i=0;i<list.size();i=i+2){
+
+            int endIndex=i+2;
+            if(endIndex>=list.size()){
+                endIndex=list.size();
+            }
+            List<String> list1 = list.subList(i, endIndex);
+
+            System.out.println(list1);
+        }
+//        list.subList()
     }
 }
