@@ -15,23 +15,27 @@ import java.util.function.Function;
 public class MultiQuery<T, R> {
     private static final Integer QUERY_SIZE = 5;
 
+    private static <T> List<T> getSubQuery(List<T> list, int index) {
+        int endIndex = index + QUERY_SIZE;
+        if (endIndex >= list.size()) {
+            endIndex = list.size();
+        }
+        return list.subList(index, endIndex);
+    }
 
-    public static  <T> List<Object[]> testQueryBiFunction(Function<List<T>, List<Object[]>> function,
-                                                  List<T> queryList) {
+    public static <T> List<Object[]> testQueryBiFunction(Function<List<T>, List<Object[]>> function,
+                                                         List<T> queryList) {
         List<Object[]> objects = Lists.newArrayList();
         for (int i = 0; i < queryList.size(); i = i + QUERY_SIZE) {
-            int endIndex = i + QUERY_SIZE;
-            if (endIndex >= queryList.size()) {
-                endIndex = queryList.size();
-            }
-            List<T> subQuery = queryList.subList(i, endIndex);
+            List<T> subQuery = getSubQuery(queryList, i);
             List<Object[]> result = function.apply(subQuery);
             objects.addAll(result);
         }
         return objects;
     }
-    public static <T,K> List<Object[]> multiQueryWithIn(BiFunction<List<T>, K, List<Object[]>> biFunction,
-                                                        List<T> queryList, K obj) {
+
+    public static <T, K> List<Object[]> multiQueryWithIn(BiFunction<List<T>, K, List<Object[]>> biFunction,
+                                                         List<T> queryList, K obj) {
         List<Object[]> objects = new ArrayList<>();
         for (int i = 0; i < queryList.size(); i = i + QUERY_SIZE) {
             int endIndex = i + QUERY_SIZE;

@@ -14,13 +14,13 @@ import java.util.List;
  **/
 public class InvokeMethod {
     public static void main(String[] args) {
-        QueryService queryService=new QueryServiceImpl();
-        List<String> list= Lists.newArrayList();
-        for(int i=0;i<15;i++){
-            list.add(""+i);
+        QueryService queryService = new QueryServiceImpl();
+        List<String> list = Lists.newArrayList();
+        for (int i = 0; i < 15; i++) {
+            list.add("" + i);
         }
 
-        List<Object[]> objects = MultiQuery.testQueryBiFunction((param)->queryService.query(param), list);
+        List<Object[]> objects = MultiQuery.testQueryBiFunction((param) -> queryService.query(param), list);
         System.out.println(objects);
     }
 }

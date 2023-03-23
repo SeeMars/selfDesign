@@ -1,10 +1,12 @@
 package mjj;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: majianjiong
@@ -13,6 +15,12 @@ import java.util.List;
  **/
 public class StringTest {
     public static void main(String[] args) {
+        String s = montageParam(Lists.newArrayList("1", "2", "3"));
+        System.out.println(s);
+        List<String> list=new ArrayList<>();
+        list.add("1234556");
+        List<String> list1 = modifySapCode(list);
+        System.out.println(list1);
         testSubString();
         System.out.println(String.format("test[%s]","值"));
         String a="12345";
@@ -32,7 +40,24 @@ public class StringTest {
         System.out.println(str);
     }
 
+    public static List<String> modifySapCode(List<String> sapCodes) {
+        List<String> list= Lists.newArrayList();
+        sapCodes.forEach(s -> {
+            //如果是纯数字
+            if (StringUtils.isNumeric(s)) {
+                if (s.length() < 10) {
+                    //计算需要补位几个0
+                    int count = 10 - s.length();
+                    for (int i = 0; i < count; i++) {
+                        s = "0" + s;
+                    }
+                }
+                list.add(s);
+            }
+        });
+        return sapCodes;
 
+    }
     public static void testChar() {
         String str = "sad";
         str = StringUtils.replace(str, "_", "");
@@ -83,4 +108,22 @@ public class StringTest {
         });
         System.out.println(stringBuffer);
     }
+
+    /**
+     * 拼接 SQL 查询  in 的参数
+     * @param params
+     * @return
+     */
+    private static String montageParam(List<String> params){
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(" (");
+            for(String s:params){
+                buffer.append("'");
+                buffer.append(s);
+                buffer.append("',");
+            }
+            buffer.append(") ");
+            buffer.delete(buffer.lastIndexOf(","),buffer.lastIndexOf(",")+1);
+            return buffer.toString();
+        }
 }
